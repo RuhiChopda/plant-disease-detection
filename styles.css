@@ -1,0 +1,215 @@
+/* Global Styles */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f1f8f4; /* Light green background */
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+h1 {
+    color: #2c6b3e; /* Dark green */
+    text-align: center;
+    margin-top: 50px;
+    font-size: 36px;
+}
+
+h2 {
+    color: #4caf50; /* Green */
+    font-size: 24px;
+}
+
+h3 {
+    color: #f44336; /* Red for risk */
+    font-size: 20px;
+}
+
+a {
+    text-decoration: none;
+    color: #4CAF50; /* Green for clickable links */
+    font-size: 18px;
+    font-weight: bold;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Container for both pages */
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+    border: 1px solid #e0e0e0;
+}
+
+/* Home Page (index.html) */
+.form-container {
+    text-align: center;
+}
+
+input[type="file"] {
+    display: block;
+    margin: 20px auto;
+    padding: 10px;
+    font-size: 16px;
+    border: 2px solid #4CAF50;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+}
+
+input[type="file"]:hover {
+    border-color: #45a049;
+}
+
+button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    font-size: 18px;
+    cursor: pointer;
+    display: block;
+    margin: 20px auto;
+    border-radius: 8px;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+/* Result Page (result.html) */
+.result-container {
+    text-align: center;
+}
+
+img {
+    margin: 20px auto;
+    border: 4px solid #4CAF50;
+    border-radius: 12px;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+    width: 80%;
+    max-width: 400px;
+}
+
+h2, h3 {
+    margin-top: 20px;
+}
+
+/* Styling for suggestions */
+.suggestion-container {
+    margin-top: 30px;
+    padding: 15px;
+    background-color: #f1f8f4;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.suggestion-container h4 {
+    color: #2c6b3e;
+    font-size: 22px;
+}
+
+.suggestion-container p {
+    color: #333;
+    font-size: 18px;
+}
+
+.suggestion-container ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.suggestion-container ul li {
+    margin: 10px 0;
+    font-size: 18px;
+    color: #333;
+}
+
+/* Button Styling for suggestions */
+.suggestion-container button {
+    background-color: #f44336; /* Red */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 6px;
+    transition: background-color 0.3s ease;
+}
+
+.suggestion-container button:hover {
+    background-color: #e53935;
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+    h1 {
+        font-size: 30px;
+    }
+
+    .container {
+        padding: 15px;
+    }
+
+    button {
+        width: 100%;
+        padding: 12px;
+    }
+
+    img {
+        width: 90%;
+    }
+
+    .suggestion-container {
+        padding: 10px;
+    }
+}
+
+/* Multilingual / RTL Support */
+
+/* For RTL (Right-to-Left) languages */
+[dir="rtl"] {
+    text-align: right;
+}
+
+/* RTL adjustments for h1, h2, h3 */
+[dir="rtl"] h1, [dir="rtl"] h2, [dir="rtl"] h3 {
+    text-align: right;
+}
+
+/* Adjusting container for RTL languages */
+[dir="rtl"] .container {
+    direction: rtl;
+    text-align: right;
+}
+
+/* Right-to-left adjustments for form container */
+[dir="rtl"] .form-container {
+    text-align: right;
+}
+
+/* Button adjustments for RTL */
+[dir="rtl"] button {
+    text-align: right;
+}
+
+/* Apply specific font for RTL languages (for example, Arabic) */
+[dir="rtl"] {
+    font-family: 'ArabicFont', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* RTL-specific padding adjustments */
+[dir="rtl"] .container {
+    padding-right: 20px;
+    padding-left: 0;
+}
+
+/* For RTL languages, handle direction of form elements */
+[dir="rtl"] input[type="file"] {
+    text-align: right;
+}

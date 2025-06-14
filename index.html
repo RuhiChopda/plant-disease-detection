@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" dir="{{ 'rtl' if language == 'hi' else 'ltr' }}">
+<head>
+    <title>{{ 'Plant Disease Detection' if language == 'en' else 'पौधों की बीमारी का पता लगाना' }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body style="text-align: center; margin-top: 50px;">
+    <!-- Heading: Centered for both languages -->
+    <h1 style="text-align: center;">
+        {{ '🌿 Plant Disease Detection System' if language == 'en' else '🌿 पौधों की बीमारी का पता लगाने की प्रणाली' }}
+    </h1>
+    
+    <form action="/predict" method="POST" enctype="multipart/form-data">
+        <!-- Change the file input label dynamically -->
+        <label for="file" style="font-size: 18px; display:block; text-align: center;">
+            {{ 'Choose File' if language == 'en' else 'फ़ाइल चुनें' }}
+        </label>
+        <input type="file" name="file" required>
+        
+        <!-- Showing the "No file chosen" message dynamically -->
+        <br><br>
+        <input type="submit" value="{{ 'Predict Disease' if language == 'en' else 'बीमारी का अनुमान लगाएं' }}">
+    </form>
+
+    <!-- Language Switch Button -->
+    <a href="/set_language/en">{{ 'English' if language == 'hi' else 'अंग्रेजी' }}</a> | 
+    <a href="/set_language/hi">{{ 'Hindi' if language == 'en' else 'हिंदी' }}</a>
+</body>
+</html>

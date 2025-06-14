@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>{{ 'Prediction Result' if language == 'en' else 'भविष्यवाणी परिणाम' }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body style="text-align: center; margin-top: 50px; direction: {{ 'rtl' if language == 'hi' else 'ltr' }};">
+    <h1 style="text-align: center;">
+        {{ 'Prediction Result' if language == 'en' else 'भविष्यवाणी परिणाम' }}
+    </h1>
+    
+    <img src="/static/{{ image_path }}" alt="Uploaded Image" width="300">
+    <h2>{{ 'Disease' if language == 'en' else 'बीमारी' }}: {{ prediction }}</h2>
+    <h3>{{ 'Risk Level' if language == 'en' else 'जोखिम स्तर' }}: {{ risk }}</h3>
+    <br>
+    <a href="/">{{ 'Go Back' if language == 'en' else 'वापस जाएं' }}</a>
+</body>
+</html>

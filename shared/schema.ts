@@ -1,18 +1,30 @@
-import { sql } from "drizzle-orm";
-import { pgTable, text, varchar } from "drizzle-orm/pg-core";
+import { pgTable, text, serial, integer, boolean, timestamp, jsonb } from "drizzle-orm/pg-core";
 import { createInsertSchema } from "drizzle-zod";
 import { z } from "zod";
 
-export const users = pgTable("users", {
-  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
-  username: text("username").notNull().unique(),
-  password: text("password").notNull(),
+// === TABLE DEFINITIONS ===
+export const scans = pgTable("scans", {
+  id: serial("id").primaryKey(),
+  imageUrl: text("image_url").notNull(),
+  diseaseName: text("disease_name"),
+  confidence: integer("confidence"), // 0-100
+  analysis: text("analysis"), // Detailed analysis from AI
+  prevention: text("prevention"), // Prevention steps from AI
+  createdAt: timestamp("created_at").defaultNow(),
 });
 
-export const insertUserSchema = createInsertSchema(users).pick({
-  username: true,
-  password: true,
-});
+// === BASE SCHEMAS ===
+export const insertScanSchema = createInsertSchema(scans).omit({ id: true, createdAt: true });
 
-export type InsertUser = z.infer<typeof insertUserSchema>;
-export type User = typeof users.$inferSelect;
+// === EXPLICIT API CONTRACT TYPES ===
+export type Scan = typeof scans.$inferSelect;
+export type InsertScan = z.infer<typeof insertScanSchema>;
+
+// Request types
+export type CreateScanRequest = {
+  image: string; // Base64 or URL
+};
+
+// Response types
+export type ScanResponse = Scan;
+export type ScansListResponse = Scan[];

@@ -58,6 +58,37 @@ export const api = {
       },
     },
   },
+  analytics: {
+    stats: {
+      method: 'GET' as const,
+      path: '/api/analytics/stats',
+      responses: {
+        200: z.object({
+          totalScans: z.number(),
+          healthyPlants: z.number(),
+          diseasedPlants: z.number(),
+          averageConfidence: z.number(),
+          topDiseases: z.array(z.object({
+            name: z.string(),
+            count: z.number(),
+            percentage: z.number(),
+          })),
+        }),
+      },
+    },
+    trends: {
+      method: 'GET' as const,
+      path: '/api/analytics/trends',
+      responses: {
+        200: z.array(z.object({
+          date: z.string(),
+          scans: z.number(),
+          healthy: z.number(),
+          diseased: z.number(),
+        })),
+      },
+    },
+  },
 };
 
 // ============================================

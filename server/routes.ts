@@ -122,6 +122,78 @@ export async function registerRoutes(
     await storage.deleteScan(id);
     res.status(204).send();
   });
+
+  // Analytics endpoints
+  app.get(api.analytics.stats.path, async (req, res) => {
+    try {
+      const allScans = await storage.getScans();
+      
+      const totalScans = allScans.length;
+      const healthyPlants = allScans.filter(s => s.diseaseName === 'Healthy').length;
+      const diseasedPlants = totalScans - healthyPlants;
+      
+      const averageConfidence = totalScans > 0 
+        ? Math.round(allScans.reduce((sum, s) => sum + (s.confidence || 0), 0) / totalScans)
+        : 0;
+
+      // Get top diseases
+      const diseaseMap = new Map<string, number>();
+      allScans.forEach(scan => {
+        if (scan.diseaseName && scan.diseaseName !== 'Healthy') {
+          diseaseMap.set(scan.diseaseName, (diseaseMap.get(scan.diseaseName) || 0) + 1);
+        }
+      });
+
+      const topDiseases = Array.from(diseaseMap.entries())
+        .map(([name, count]) => ({
+          name,
+          count,
+          percentage: (count / diseasedPlants) * 100 || 0,
+        }))
+        .sort((a, b) => b.count - a.count);
+
+      res.json({
+        totalScans,
+        healthyPlants,
+        diseasedPlants,
+        averageConfidence,
+        topDiseases,
+      });
+    } catch (error) {
+      console.error("Analytics error:", error);
+      res.status(500).json({ message: "Failed to fetch analytics" });
+    }
+  });
+
+  app.get(api.analytics.trends.path, async (req, res) => {
+    try {
+      const allScans = await storage.getScans();
+      
+      // Group by date
+      const trendMap = new Map<string, { scans: number; healthy: number; diseased: number }>();
+      
+      allScans.forEach(scan => {
+        const date = scan.createdAt?.toISOString().split('T')[0] || 'unknown';
+        const current = trendMap.get(date) || { scans: 0, healthy: 0, diseased: 0 };
+        current.scans += 1;
+        if (scan.diseaseName === 'Healthy') {
+          current.healthy += 1;
+        } else {
+          current.diseased += 1;
+        }
+        trendMap.set(date, current);
+      });
+
+      const trends = Array.from(trendMap.entries())
+        .map(([date, data]) => ({ date, ...data }))
+        .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+
+      res.json(trends);
+    } catch (error) {
+      console.error("Trends error:", error);
+      res.status(500).json({ message: "Failed to fetch trends" });
+    }
+  });
   
   // Initialize seeding
   seedDatabase().catch(console.error);

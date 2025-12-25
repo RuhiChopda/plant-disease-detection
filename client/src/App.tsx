@@ -7,6 +7,7 @@ import NotFound from "@/pages/not-found";
 import Home from "@/pages/Home";
 import History from "@/pages/History";
 import ScanResult from "@/pages/ScanResult";
+import Dashboard from "@/pages/Dashboard";
 
 function Router() {
   return (
@@ -14,6 +15,7 @@ function Router() {
       <Route path="/" component={Home} />
       <Route path="/history" component={History} />
       <Route path="/scan/:id" component={ScanResult} />
+      <Route path="/analytics" component={Dashboard} />
       <Route component={NotFound} />
     </Switch>
   );

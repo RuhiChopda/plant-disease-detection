@@ -1,5 +1,5 @@
 import { Link, useLocation } from "wouter";
-import { Leaf, History, Home } from "lucide-react";
+import { Leaf, History, Home, BarChart3 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 export function Header() {
@@ -8,6 +8,7 @@ export function Header() {
   const navItems = [
     { href: "/", label: "Home", icon: Home },
     { href: "/history", label: "History", icon: History },
+    { href: "/analytics", label: "Analytics", icon: BarChart3 },
   ];
 
   return (

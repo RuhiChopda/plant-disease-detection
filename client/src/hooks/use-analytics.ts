@@ -6,14 +6,16 @@ export function useAnalytics() {
   const statsQuery = useQuery({
     queryKey: ['/api/analytics/stats'],
     queryFn: async () => {
-      return apiRequest(api.analytics.stats.path, { method: api.analytics.stats.method });
+      const res = await apiRequest(api.analytics.stats.method, api.analytics.stats.path);
+      return res.json();
     },
   });
 
   const trendsQuery = useQuery({
     queryKey: ['/api/analytics/trends'],
     queryFn: async () => {
-      return apiRequest(api.analytics.trends.path, { method: api.analytics.trends.method });
+      const res = await apiRequest(api.analytics.trends.method, api.analytics.trends.path);
+      return res.json();
     },
   });
 

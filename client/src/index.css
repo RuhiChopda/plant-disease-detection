@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -32,6 +32,11 @@
   --ring: 142 50% 35%;
 
   --radius: 1rem;
+  
+  /* Additional semantic colors */
+  --success: 142 65% 40%;
+  --warning: 35 90% 50%;
+  --info: 200 80% 45%;
 }
 
 .dark {
@@ -56,6 +61,10 @@
   --border: 150 20% 20%;
   --input: 150 20% 20%;
   --ring: 142 50% 45%;
+  
+  --success: 142 65% 50%;
+  --warning: 35 90% 60%;
+  --info: 200 80% 55%;
 }
 
 @layer base {
@@ -72,6 +81,48 @@
   }
 }
 
+@layer components {
+  .btn-primary {
+    @apply px-6 py-2.5 rounded-lg bg-primary text-primary-foreground font-medium transition-all duration-200 hover:bg-primary/90 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+
+  .btn-secondary {
+    @apply px-6 py-2.5 rounded-lg bg-secondary text-secondary-foreground font-medium transition-all duration-200 hover:bg-secondary/90 active:scale-95 disabled:opacity-50;
+  }
+
+  .btn-outline {
+    @apply px-6 py-2.5 rounded-lg border-2 border-primary text-primary font-medium transition-all duration-200 hover:bg-primary/5 active:scale-95;
+  }
+
+  .card-base {
+    @apply rounded-2xl border border-border/50 bg-white/50 dark:bg-white/5 backdrop-blur-sm p-6;
+  }
+
+  .card-elevated {
+    @apply card-base shadow-lg shadow-black/5 dark:shadow-black/20;
+  }
+
+  .badge-success {
+    @apply inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300 text-xs font-medium;
+  }
+
+  .badge-warning {
+    @apply inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300 text-xs font-medium;
+  }
+
+  .badge-danger {
+    @apply inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-300 text-xs font-medium;
+  }
+
+  .input-base {
+    @apply w-full px-4 py-2.5 rounded-lg border border-input bg-background/50 text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all;
+  }
+
+  .section-divider {
+    @apply border-t border-border/30;
+  }
+}
+
 @layer utilities {
   .text-balance {
     text-wrap: balance;
@@ -81,8 +132,74 @@
     @apply bg-white/60 dark:bg-black/40 backdrop-blur-md border border-white/20 dark:border-white/10 shadow-xl shadow-black/5;
   }
 
+  .glass-effect {
+    @apply backdrop-blur-xl bg-white/40 dark:bg-white/10 border border-white/20 dark:border-white/10;
+  }
+
   .leaf-pattern {
-    background-image: radial-gradient(circle at 2px 2px, rgba(0,0,0,0.03) 1px, transparent 0);
-    background-size: 24px 24px;
+    background-image: 
+      radial-gradient(circle at 20% 30%, rgba(34, 197, 94, 0.08) 0%, transparent 50%),
+      radial-gradient(circle at 80% 70%, rgba(142, 156, 113, 0.05) 0%, transparent 50%),
+      radial-gradient(circle at 2px 2px, rgba(0,0,0,0.03) 1px, transparent 0);
+    background-size: 100% 100%, 100% 100%, 24px 24px;
+  }
+
+  .gradient-primary {
+    @apply bg-gradient-to-br from-primary/10 via-primary/5 to-transparent;
+  }
+
+  .gradient-accent {
+    @apply bg-gradient-to-br from-accent/10 via-accent/5 to-transparent;
+  }
+
+  .smooth-transition {
+    @apply transition-all duration-300 ease-out;
+  }
+
+  .hover-lift {
+    @apply hover:-translate-y-1 hover:shadow-lg smooth-transition;
+  }
+
+  .text-primary-grad {
+    @apply bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent;
+  }
+
+  .fade-in {
+    animation: fadeIn 0.5s ease-out;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .slide-in-up {
+    animation: slideInUp 0.4s ease-out;
+  }
+
+  @keyframes slideInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .pulse-soft {
+    animation: pulseSoft 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+
+  @keyframes pulseSoft {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.8; }
   }
 }
